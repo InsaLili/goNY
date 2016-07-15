@@ -13,10 +13,10 @@ var logger = new (winston.Logger)({
         new (winston.transports.File)({ filename: filename })
     ]
 });
-// Database
-var PouchDB = require('pouchdb');
-// var db = new PouchDB('http://localhost:5984/trip');
-var db = new PouchDB('http://myoa.smileupps.com/trip');
+// // Database
+// var PouchDB = require('pouchdb');
+// // var db = new PouchDB('http://localhost:5984/trip');
+// var db = new PouchDB('http://myoa.smileupps.com/trip');
 
 var app = express();
 var routes = require('./routes/index');
@@ -31,11 +31,11 @@ app.use(bodyParser.urlencoded( {extended: false} ));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Make our db accessible to our router
-app.use(function(req,res,next){
-    req.db = db;
-    next();
-});
+// // Make our db accessible to our router
+// app.use(function(req,res,next){
+//     req.db = db;
+//     next();
+// });
 
 app.use('/', routes);
 //app.use('/users', users);
