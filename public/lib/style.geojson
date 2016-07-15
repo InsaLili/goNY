@@ -1,0 +1,106 @@
+var geoJson = [{
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": locations[0]
+        },
+        "properties": {
+            "title": "<h4>Balcon sur la cascade</h4>",
+            "content": message[0],
+            "image":"img/balcon.jpg",
+            "marker-symbol": "chemist",
+            "marker-color": "#E91E63",
+            "marker-size": "large"
+        }
+    },{
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": locations[1]
+        },
+        "properties": {
+            "title": "<h4>Sous les embruns</h4>",
+            "content": message[1],
+            "marker-symbol": "chemist",
+            "marker-color": "#E91E63",
+            "marker-size": "large"
+        }
+    },{
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": locations[2]
+        },
+        "properties": {
+            "title": "<h4>Au détour du sentier</h4>",
+            "content": message[2],
+            "marker-symbol": "chemist",
+            "marker-color": "#E91E63",
+            "marker-size": "large"
+        }
+    },{
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": locations[3]
+        },
+        "properties": {
+            "title": "<h4>La clairière</h4>",
+            "content": message[3],
+            "marker-symbol": "chemist",
+            "marker-color": "#E91E63",
+            "marker-size": "large"
+        }
+    },{
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": locations[7]
+        },
+        "properties": {
+            "title": "<h4>Lycée N°4</h4>",
+            "content": message[4],
+            "marker-symbol": "chemist",
+            "marker-color": "#E91E63",
+            "marker-size": "large"
+        }
+    },{
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": locations[4]
+        },
+        "properties": {
+            "title": "<h4>Lycée N°1</h4>",
+            "content": message[5],
+            "marker-symbol": "chemist",
+            "marker-color": "#E91E63",
+            "marker-size": "large"
+        }
+    },{
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": locations[5]
+        },
+        "properties": {
+            "title": "<h4>Lycée N°2</h4>",
+            "content": message[6],
+            "marker-symbol": "chemist",
+            "marker-color": "#E91E63",
+            "marker-size": "large"
+        }
+    },{
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": locations[6]
+        },
+        "properties": {
+            "title": "<h4>Lycée N°3</h4>",
+            "content": message[7],
+            "marker-symbol": "chemist",
+            "marker-color": "#E91E63",
+            "marker-size": "large"
+        }
+    }];

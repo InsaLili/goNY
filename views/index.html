@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" media="screen" href="lib/star-rating.min.css">
+    <link rel="stylesheet" media="screen" href="lib/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" media="screen" href="lib/media.css">
+    <link rel="stylesheet" media="screen" href="lib/jquery-ui-1.11.4/jquery-ui.css">
+    <link rel="stylesheet" media="screen" href="lib/mapbox/mapbox.css">
+    <link rel="stylesheet" media="screen" href="css/main.css">
+    <title>Map</title>
+</head>
+<body>
+
+<div id="appLayer">
+    <div id="status">
+        <!--Show tasks of each step-->
+        <div id="tasks" class="kit">
+            <h1>Planifiez votre voyage à New York :</h1>
+            <div id="steps">
+                <div id="step1" class="step">
+                    <span class="glyphicon glyphicon-unchecked"></span>
+                    <p>Exploration</p>
+                </div>
+                <div id="step2" class="step">
+                    <span class="glyphicon glyphicon-unchecked"></span>
+                    <p>Choix</p>
+                </div>
+                <div id="step3" class="step">
+                    <span class="glyphicon glyphicon-unchecked"></span>
+                    <p>Présentation</p>
+                </div>
+            </div>
+        </div>
+        <div class="kit filter">
+            <button id="attraction" class="btn btn-default btn-md" data-filter='attractions'><img src="img/icon-pitch-1.png"></button>
+            <button id="hotel" class="btn btn-default btn-md" data-filter='hotels'><img src="img/icon-hotel-1.png"></button>
+         </div>
+
+        <div class="kit filter">
+            <button id="like" class="btn btn-default btn-md" data-filter='heart'><span class="glyphicon glyphicon-heart red"></span></button>
+            <button id="all" class="btn btn-default btn-md" data-filter='card'><span class="glyphicon glyphicon-th-large blue"></span></button>
+        </div>
+        <!--timer-->
+        <div id="counter" class="kit">
+            <div id="timer1"></div>
+            <div id="timer2"></div>
+        </div>
+    </div>
+    <!--Here is the map div-->
+    <!--Show the mountain location cards-->
+    <div class="locations">
+    </div>
+</div>
+<!--Here are the hiden dialogs-->
+<div id="dialogSpace">
+    <div id="start" title="Etape 1 : Exploration">
+        <br>
+        <h4>Vous avez 15 minutes pour parcourir toutes les informations.</h4>
+    </div>
+    <div id="secondStepDialog" title="Etape 2 : Choix">
+        <br>
+        <h4>Vous avez 10 minutes pour décider de votre itinéraire final</h4>
+    </div>
+    <div id="thirdStepDialog" title="Etape 3 : Présentation">
+        <br>
+        <h4>Faites une présentation de votre voyage.</h4>
+    </div>
+    <div id="gameEnd" title="The End">
+        <br>
+        <h4>Félicitations, vous avez terminé la tâche!</h4>
+    </div>
+
+</div>
+<div id="map"></div>
+
+<script src="lib/jquery/jquery-2.1.3.min.js"></script>
+<script src="lib/bootstrap/js/bootstrap.min.js"></script>
+<script src="lib/mapbox/mapbox.js"></script>
+<!--<script src='https://api.mapbox.com/mapbox.js/v2.2.2/mapbox.js'></script>-->
+<script src="lib/jquery-ui-1.11.4/jquery-ui.js"></script>
+<script src="lib/jquery/jquery.ui.touch-punch.min.js"></script>
+<script src="lib/hammer.min.js"></script>
+<script src="lib/pouchdb/pouchdb-3.4.0.min.js"></script>
+<script src="lib/socket.io.js"></script>
+<script src="lib/star-rating.min.js"></script>
+<script src="lib/jquery/jquery.countdown.js"></script>
+<script src="lib/jquery/jquery.touch.js"></script>
+<script src="js/main.js"></script>
+<!--<script src="js/main_2.js"></script>-->
+</body>
+</html>
+

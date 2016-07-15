@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" media="screen" href="lib/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" media="screen" href="lib/jquery-ui-1.11.4/jquery-ui.css">
+    <link rel="stylesheet" media="screen" href="css/player.css">
+    <title>Player</title>
+</head>
+<body>
+<div id="maskLayer">
+    <h1>Choisir un avatar</h1>
+    <div id="choosePlayer">
+        <div class="choosePlayer">
+            <button class="btn btn-default choosePlayerBtn" value=1>
+                <img src="img/player1.png">
+            </button>
+        </div>
+        <div class="choosePlayer">
+            <button class="btn btn-default choosePlayerBtn" value=2>
+                <img src="img/player2.png">
+            </button>
+        </div>
+        <div class="choosePlayer">
+            <button class="btn btn-default choosePlayerBtn" value=3>
+                <img src="img/player3.png">
+            </button>
+        </div>
+    </div>
+</div>
+<div id="appLayer">
+    <div id="locationInfo">
+        <div id="wrap">
+            <iframe id="frame" src="" name="targetframe" allowTransparency="true" scrolling="auto" frameborder="0">
+            </iframe>
+        </div>
+    </div>
+    <div id="personalInfo" class="container">
+        <div id="avatar"><img src=""></div>
+        <div id="vote">
+            <span class="glyphicon glyphicon-heart grey" id="heart"></span>
+            <p>J'aime</p>
+        </div>
+        <div id="addNotes" >
+            <h5>Ajouter mes notes</h5>
+            <div id="myNote">
+                <textarea class="form-control" rows="5" cols="1"></textarea>
+                <button class="btn btn-default pull-right btn-sm" id="submitNote">Validation</button>
+            </div>
+        </div>
+
+        <h5 id="noteTitle">Mes notes</h5>
+        <div id="showNotes">
+            <span id="note"></span>
+        </div>
+    </div>
+    <div id="dialogSpace">
+        <div id="chooseLocationDlg" title="Attention">
+            Choisissez d'abord un emplacement!
+        </div>
+        <div id="writeNoteDlg" title="Attention">
+            Écrivez une note avant de la soumettre!
+        </div>
+    </div>
+</div>
+<script src="lib/jquery/jquery-2.1.3.min.js"></script>
+<script src="lib/jquery-ui-1.11.4/jquery-ui.js"></script>
+<script src="lib/hammer.min.js"></script>
+<script src="lib/pouchdb/pouchdb-3.4.0.min.js"></script>
+<script src="lib/pouchdb/pouchdb-upsert.js"></script>
+<script src="lib/socket.io.js"></script>
+<script src="js/player.js"></script>
+<!-- <script src="js/star-rating.min.js"></script> -->
+<script src="lib/screenfull.js"></script>
+<script src="lib/jquery-ui-1.11.4/jquery-ui.min.js"></script>
+<!--<script src="js/database.js"></script>-->
+</body>
+</html>
