@@ -8,7 +8,7 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res) {
-    res.render('index', { title: 'Map' });
+    res.render('index', { title: 'GoNY' });
 });
 
 router.get('/player', function(req, res){
