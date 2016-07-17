@@ -80,6 +80,13 @@ io.on('connection', function (socket) {
 //        io.emit send message to all clients，socket.emit send message to particular client
     socket.on('start',function(){
         console.log('Experiment Starts!!!!');
+        cardTouch = 0;
+        mapDrag = 0;
+        mapZoom = 0;
+        filterHeart = 0;
+        filterCard = 0;
+        filterHotels = 0;
+        filterAttractions = 0;
     });
     socket.on('chooselocation', function (data) {
         var txt = 'choose the location, player: '+data.player+', location: '+data.location;
