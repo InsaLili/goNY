@@ -8,7 +8,7 @@ $(document).ready(function() {
     });
 
     var db = new PouchDB('http://myoa.smileupps.com/trip');
-    var socket = io.connect('http://localhost:8000');
+    var socket = io.connect('https://gony.herokuapp.com');
     // var socket = io.connect('http://192.168.145.39:8000');
     var myLayer;
     var groupNumber = 5;

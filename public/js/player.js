@@ -10,7 +10,9 @@ $(document).ready(function($){
     var red = '#D00000';
 
     var db = new PouchDB('http://myoa.smileupps.com/trip');
-    var socket = io.connect('http://localhost:8000');
+    // var socket = io.connect('http://localhost:8000');
+    var socket = io.connect('https://gony.herokuapp.com');
+    
     // Functions =============================================================
     var Client = {
         init: function(){
