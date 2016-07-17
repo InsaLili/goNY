@@ -95,7 +95,8 @@ io.on('connection', function (socket) {
     });
 
     socket.on('filtrateLocation', function(data){
-        console.log('filtrate location', data);
+        var card = data.button;
+        console.log('filtrate location', card);
     });
 
     socket.on('touchLocationCard', function(data){

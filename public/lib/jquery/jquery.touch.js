@@ -3,9 +3,9 @@
  */
 
 (function($, TweenLite) {
-    var socket = io.connect('http://localhost:8000');
-//    var socket = io.connect('http://134.214.108.42:8000');
-
+    // var socket = io.connect('http://localhost:8000');
+    var socket = io.connect('https://gony.herokuapp.com');
+    
     "use strict";
 
     var defaults = {
