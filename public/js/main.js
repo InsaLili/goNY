@@ -122,8 +122,6 @@ $(document).ready(function() {
             chooseLocation(this);
         });
 
-        $('#heart').on('click', filtrateLocation);
-        $('#all').on('click', hideLocation);
         $('#step1 .glyphicon').css('color', white);
         $('#step1 p').css('color', white);
         $('#step1 span').on('click', function(){
@@ -386,6 +384,7 @@ $(document).ready(function() {
         });
 
         socket.on('vote', function (data) {
+            var id = data.id;
             var location = data.location;
             var player = data.player;
             var value = data.value;
@@ -395,8 +394,16 @@ $(document).ready(function() {
             } else {
                 $(hearts[player - 1]).css('color', 'grey');
             }
+            var exist = $.grep(allEval, function(value){
+                return value.id == id;
+            });
+            var newVote = exist[0];
+            if(newVote==undefined){
+                allEval.push(data);
+            }else{
+                allEval[allEval.indexOf(newVote)].value = value
+            }
             if(heartBtn==true) filtrateLocation();
-            allEval.push(data);
             updateDB();
         });
 
@@ -408,26 +415,18 @@ $(document).ready(function() {
         $('.location').hide();
         if(attractionBtn==true && hotelBtn==true){
             if(heartBtn==true){
-                var startKey = 'vote_'+groupNumber;
-                db.allDocs({
-                    include_docs: true,
-                    attachements: true,
-                    startkey: startKey,
-                    endkey: startKey+'\uffff'
-                }).then(function(votes){
-                    var list=[];
-                    for(var i = 0; i < votes.rows.length; i++) {
-                        var doc = votes.rows[i].doc;
-                        if(doc.vote == true){
-                            var location = doc.location;
-                            if(cardBtn==true) $('#location'+location).show();
-                            list.push(location);
-                        }
-                    }
-                    myLayer.setFilter(function(f) {
-                        var number = f.properties.metadata;
-                        return (jQuery.inArray(number, list)!==-1);
-                    });
+                var likedLocation = $.grep(allEval, function(eval){
+                    return eval.value == true;
+                });
+                var list=[];
+                for(var i = 0; i < likedLocation.length; i++) {
+                    var location = likedLocation[i].location;
+                    if(cardBtn==true) $('#location'+location).show();
+                    list.push(location);
+                }
+                myLayer.setFilter(function(f) {
+                    var number = f.properties.metadata;
+                    return (jQuery.inArray(number, list)!==-1);
                 });
             }else{
                 if(cardBtn==true) $('.location').show();
@@ -437,28 +436,20 @@ $(document).ready(function() {
             }
         }else if(attractionBtn==true && hotelBtn==false){
             if(heartBtn==true){
-                var startKey = 'vote_'+groupNumber;
-                db.allDocs({
-                    include_docs: true,
-                    attachements: true,
-                    startkey: startKey,
-                    endkey: startKey+'\uffff'
-                }).then(function(votes){
-                    var list=[];
-                    for(var i = 0; i < votes.rows.length; i++) {
-                        var doc = votes.rows[i].doc;
-                        if(doc.vote == true){
-                            var location = doc.location;
-                            if(location<=attractionAmount){
-                                list.push(location);
-                                if(cardBtn==true) $('#location'+location).show();
-                            }
-                        }
+                var likedLocation = $.grep(allEval, function(eval){
+                    return eval.value == true;
+                });
+                var list=[];
+                for(var i = 0; i < likedLocation.length; i++) {
+                    var location = likedLocation[i].location;
+                    if(location<=attractionAmount){
+                        list.push(location);
+                        if(cardBtn==true) $('#location'+location).show();
                     }
-                    myLayer.setFilter(function(f) {
-                        var number = f.properties.metadata;
-                        return (jQuery.inArray(number, list)!==-1);
-                    });
+                }
+                myLayer.setFilter(function(f) {
+                    var number = f.properties.metadata;
+                    return (jQuery.inArray(number, list)!==-1);
                 });
             }else{
                 if(cardBtn==true) $('.attractions').show();
@@ -468,28 +459,20 @@ $(document).ready(function() {
             }
         }else if(attractionBtn==false && hotelBtn==true){
             if(heartBtn==true){
-                var startKey = 'vote_'+groupNumber;
-                db.allDocs({
-                    include_docs: true,
-                    attachements: true,
-                    startkey: startKey,
-                    endkey: startKey+'\uffff'
-                }).then(function(votes){
-                    var list=[];
-                    for(var i = 0; i < votes.rows.length; i++) {
-                        var doc = votes.rows[i].doc;
-                        if(doc.vote == true){
-                            var location = doc.location;
-                            if(location>attractionAmount){
-                                list.push(location);
-                                if(cardBtn==true) $('#location'+location).show();
-                            }
-                        }
+               var likedLocation = $.grep(allEval, function(eval){
+                    return eval.value == true;
+                });
+                var list=[];
+                for(var i = 0; i < likedLocation.length; i++) {
+                    var location = likedLocation[i].location;
+                    if(location>attractionAmount){
+                        list.push(location);
+                        if(cardBtn==true) $('#location'+location).show();
                     }
-                    myLayer.setFilter(function(f) {
-                        var number = f.properties.metadata;
-                        return (jQuery.inArray(number, list)!==-1);
-                    });
+                }
+                myLayer.setFilter(function(f) {
+                    var number = f.properties.metadata;
+                    return (jQuery.inArray(number, list)!==-1);
                 });
             }else{
                 if(cardBtn==true) $('.hotels').show();
@@ -504,18 +487,18 @@ $(document).ready(function() {
         }
     }
 
-    hideLocation = function(){
-        socket.emit('hideLocation',{hide: hide});
-        if(hide==false){
-            $('.location').hide();
-            $('#all').css('color', 'grey');
-            hide = true;
-        }else{
-            $('.location').show();
-            $('#all').css('color', blue);
-            hide=false;
-        }
-    }
+    // hideLocation = function(){
+    //     socket.emit('hideLocation',{hide: hide});
+    //     if(hide==false){
+    //         $('.location').hide();
+    //         $('#all').css('color', 'grey');
+    //         hide = true;
+    //     }else{
+    //         $('.location').show();
+    //         $('#all').css('color', blue);
+    //         hide=false;
+    //     }
+    // }
 
     chooseLocation = function(element){
         var buttonValue = element.value.split(',');

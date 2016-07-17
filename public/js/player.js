@@ -145,16 +145,23 @@ $(document).ready(function($){
         },
 
         attachVote: function(vote){
-            if(vote.length !== 0){
-                like = vote[0].value;
-                if(like == true){
-                    $('#heart').css('color', red);
-                }else{
-                    $('#heart').css('color', 'grey');
-                }
+            if(vote[0]!==undefined && vote[0].value == true){
+                $('#heart').css('color', red);
+                like = true;
             }else{
                 $('#heart').css('color', 'grey');
+                like = false;
             }
+            // if(vote.length !== 0){
+            //     like = vote[0].value;
+            //     if(like == true){
+            //         $('#heart').css('color', red);
+            //     }else{
+            //         $('#heart').css('color', 'grey');
+            //     }
+            // }else{
+            //     $('#heart').css('color', 'grey');
+            // }
         },
 
         addNote: function(){
@@ -171,7 +178,9 @@ $(document).ready(function($){
                 $('#writeNoteDlg').dialog('open');
                 return;
             }
-            var id= 'group'+groupNumber+'/location'+locationNumber+'/player'+playerNumber+'/'+Math.random();
+            // var id= 'group'+groupNumber+'_location'+locationNumber+'_player'+playerNumber+'_'+Math.random();
+            var randomNum = Math.round(Math.random()*10000000000);
+            var id= 'note'+randomNum;
             $('#showNotes span').append('<div class="noteOfPlayer">'+'<p>'+text+'</p>'+'<button id='+id+'  class="btn btn-default btn-xs deletenote">Effacer</button>'+'</div>');
             Client.changeColor();
             socket.emit('addnote', {id: id,content: text, location: locationNumber,player: playerNumber});
@@ -189,7 +198,7 @@ $(document).ready(function($){
                 $('#chooseLocationDlg').dialog('open');
                 return;
             }
-            var id = 'group'+groupNumber+'/location'+locationNumber+'/player'+playerNumber;
+            var id = 'group'+groupNumber+'_location'+locationNumber+'_player'+playerNumber;
             if(like == false){
                 like = true;
                 $( '#heart' ).css('color', red);
@@ -199,23 +208,6 @@ $(document).ready(function($){
             }
             socket.emit('vote', {id: id,value:like,location:locationNumber,player:playerNumber});
         },
-
-        // updateVote: function(value, id){
-        //     db.upsert(id, function(doc){
-        //         return{
-        //             "type": "vote",
-        //             "group": groupNumber,
-        //             "location": locationNumber,
-        //             "player": playerNumber,
-        //             "vote": value
-        //         }
-        //     }).then(function(){
-        //         socket.emit('vote', {location: locationNumber, group: groupNumber, player: playerNumber, value:value});
-        //     }).catch(function(err){
-        //         console.log(err);
-        //     });
-
-        // },
 
         changeColor: function(){
             var colors = [['#E0F2F1','#009688'], ['#F1F8E9','#8BC34A'], ['#FFF3E0','#FF9800']];

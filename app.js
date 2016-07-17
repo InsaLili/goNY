@@ -66,6 +66,10 @@ httpserver.listen(app.get('port'), function () {
 });
 
 //socket
+var cardTouch = 0;
+var mapDrag = 0;
+var mapZoom = 0;
+var filter = 0;
 var io = require('socket.io')(httpserver);
 io.on('connection', function (socket) {
     socket.emit('news', {hello: 'world'});
@@ -97,12 +101,14 @@ io.on('connection', function (socket) {
     });
 
     socket.on('filtrateLocation', function(data){
+        filter++;
         var card = data.button;
-        console.log('filtrate location: ', card);
+        console.log('filtrate location: ', card, filter);
     });
 
     socket.on('touchLocationCard', function(data){
-        console.log('touch a location card', data);
+        cardTouch++;
+        console.log('touch a location card', data, cardTouch);
     });
 
     socket.on('validation', function(data){
@@ -110,11 +116,13 @@ io.on('connection', function (socket) {
     });
 
     socket.on('changeZoom', function(){
-        console.log('change the zoom of the map');
+        mapZoom++:
+        console.log('change the zoom of the map',mapZoom);
     });
 
     socket.on('dragend', function(){
-        console.log('drag the map');
+        mapDrag++;
+        console.log('drag the map', mapDrag);
     });
 
     socket.on('end', function(){
