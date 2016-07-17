@@ -75,7 +75,8 @@ io.on('connection', function (socket) {
         console.log('Experiment Starts!!!!');
     });
     socket.on('chooselocation', function (data) {
-        console.log('choose the location',data.player,data.location);
+        var txt = 'choose the location, player: '+data.player+', location: '+data.location;
+        console.log(txt);
         var numLocation = data.location-1;
         io.emit('chooselocation', data);
     });
@@ -90,7 +91,8 @@ io.on('connection', function (socket) {
     });
 
     socket.on('vote', function(data){
-        console.log('vote for location',data);
+        var txt = 'vote for location, id: '+data.id+', value: '+data.value;
+        console.log(txt);
         io.emit('vote', data);
     });
 
