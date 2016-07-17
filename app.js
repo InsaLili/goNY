@@ -69,7 +69,10 @@ httpserver.listen(app.get('port'), function () {
 var cardTouch = 0;
 var mapDrag = 0;
 var mapZoom = 0;
-var filter = 0;
+var filterHeart = 0;
+var filterCard = 0;
+var filterHotels = 0;
+var filterAttractions = 0;
 var io = require('socket.io')(httpserver);
 io.on('connection', function (socket) {
     socket.emit('news', {hello: 'world'});
@@ -101,9 +104,25 @@ io.on('connection', function (socket) {
     });
 
     socket.on('filtrateLocation', function(data){
-        filter++;
         var card = data.button;
-        console.log('filtrate location: ', card, filter);
+        switch(card){
+            case 'card':
+                filterCard++;
+                console.log('filter: ', card, filterCard);
+                break;
+            case 'heart':
+                filterHeart++;
+                console.log('filter: ', card, filterHeart);
+                break;
+            case 'hotels':
+                filterHotels++;
+                console.log('filter: ', card, filterHotels);
+                break;
+            case 'attractions':
+                filterAttractions++;
+                console.log('filter: ', card, filterAttractions);
+                break;        
+        }
     });
 
     socket.on('touchLocationCard', function(data){
@@ -116,7 +135,7 @@ io.on('connection', function (socket) {
     });
 
     socket.on('changeZoom', function(){
-        mapZoom++:
+        mapZoom++;
         console.log('change the zoom of the map',mapZoom);
     });
 
