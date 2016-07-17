@@ -5,14 +5,13 @@ $(document).ready(function($){
     var locationNumber;
     var groupNumber = 5;
     var playerNumber = 0;
-    var allNotes = 0;
     var like = false;
     var red = '#D00000';
 
     var db = new PouchDB('http://myoa.smileupps.com/trip');
     // var socket = io.connect('http://localhost:8000');
     var socket = io.connect('https://gony.herokuapp.com');
-    
+
     // Functions =============================================================
     var Client = {
         init: function(){
@@ -79,10 +78,6 @@ $(document).ready(function($){
 
         serviceInit: function(){
             //------------------communication via server
-            socket.on('choosegroup', function(data){
-                console.log(data);
-                groupNumber = data.group;
-            });
 
             var addresses=[
 //                'http://place.qyer.com/poi/V2EJZlFvBz9TbA/',
@@ -128,74 +123,38 @@ $(document).ready(function($){
                 var player = data.player;
                 if(player == playerNumber) {
                     locationNumber = data.location;
-                    Client.attachNote();
-                    Client.attachVote();
+                    Client.attachNote(data.notes);
+                    Client.attachVote(data.eval);
                     document.getElementById("frame").src = addresses[locationNumber-1];
                 }
             });
         },
 
-        attachNote: function(){
+        attachNote: function(notes){
             $("#showNotes span").empty();
-
-            //show notes of each player
-            var startKey = 'note_'+groupNumber+'_'+locationNumber+'_'+playerNumber;
-            db.allDocs({
-                include_docs: true,
-                attachements: true,
-                startkey: startKey,
-                endkey: startKey+'\uffff'
-            }).then(function(notes){
-                var noteContent = '';
-                for(var i=0; i < notes.rows.length; i++){
-                    var note = notes.rows[i].doc;
-                    noteContent += '<div class = "noteOfPlayer">';
-                    noteContent += '<p>'+note.content+'</p>';
-                    noteContent += '<button id="'+note._id+'" class="btn btn-default btn-xs deletenote">'+'Effacer'+'</button>';
-                    noteContent += '</div>';
-                }
-                $('#showNotes span').html(noteContent);
-                Client.changeColor();
-            });
-            Client.getNoteNumber();
+            var noteContent = '';
+            for(var i=0; i < notes.length; i++){
+                var note = notes[i];
+                noteContent += '<div class = "noteOfPlayer">';
+                noteContent += '<p>'+note.content+'</p>';
+                noteContent += '<button id="'+note.id+'" class="btn btn-default btn-xs deletenote">'+'Effacer'+'</button>';
+                noteContent += '</div>';
+            }
+            $('#showNotes span').html(noteContent);
+            Client.changeColor();
         },
 
-        getNoteNumber: function(){
-            var startKey = 'note_'+groupNumber;
-            db.allDocs({
-                include_docs: true,
-                attachements: true,
-                startkey: startKey,
-                endkey: startKey+'\uffff'
-            }).then(function(notes){
-                for(var i=0; i < notes.rows.length; i++){
-                    if(notes.rows[i].doc.author == playerNumber){
-                        allNotes++;
-                    }
-                }
-            });
-        },
-
-        attachVote: function(){
-            var startKey = 'vote_'+groupNumber+'_'+locationNumber+'_'+playerNumber;
-
-            db.allDocs({
-                include_docs: true,
-                attachements: true,
-                startkey: startKey,
-                endkey: startKey+'\uffff'
-            }).then(function(vote){
-                if(vote.rows.length !== 0){
-                    like = vote.rows[0].doc.vote;
-                    if(like == true){
-                        $('#heart').css('color', red);
-                    }else{
-                        $('#heart').css('color', 'grey');
-                    }
+        attachVote: function(vote){
+            if(vote.length !== 0){
+                like = vote[0].value;
+                if(like == true){
+                    $('#heart').css('color', red);
                 }else{
                     $('#heart').css('color', 'grey');
                 }
-            });
+            }else{
+                $('#heart').css('color', 'grey');
+            }
         },
 
         addNote: function(){
@@ -212,54 +171,17 @@ $(document).ready(function($){
                 $('#writeNoteDlg').dialog('open');
                 return;
             }
-
-            var startKey = 'note_'+groupNumber+'_'+locationNumber+'_'+playerNumber;
-            var noteNumber;
-            db.allDocs({
-                include_docs: true,
-                attachements: true,
-                startkey: startKey,
-                endkey: startKey+'\uffff'
-            }).then(function(notes){
-            //如果之前已经有note，则noteNumber为之前最后一条note的number加1
-            //如果没有，则noteNumber为1
-                if(notes.rows.length !== 0){
-                    noteNumber = notes.rows[notes.rows.length-1].doc.number+1;
-                }else{
-                    noteNumber = 1;
-                }
-                //the new id for new note
-                var id = 'note_'+groupNumber+'_'+locationNumber+'_'+playerNumber+'_'+noteNumber;
-                db.put({
-                    _id: id,
-                    "type": "note",
-                    "group": groupNumber,
-                    "location": locationNumber,
-                    "author": playerNumber,
-                    "number": noteNumber,
-                    'content':text
-                }).then(function(){
-                    $('#showNotes span').append('<div class="noteOfPlayer">'+'<p>'+text+'</p>'+'<button id='+id+'  class="btn btn-default btn-xs deletenote">Effacer</button>'+'</div>');
-                    Client.changeColor();
-                    allNotes++;
-                    socket.emit('addnote', {id: id, content: text, location: locationNumber, player: playerNumber, notes: allNotes});
-                });
-            }).catch(function(err){
-                console.log(err);
-            });
-
+            var id= 'group'+groupNumber+'/location'+locationNumber+'/player'+playerNumber+'/'+Math.random();
+            $('#showNotes span').append('<div class="noteOfPlayer">'+'<p>'+text+'</p>'+'<button id='+id+'  class="btn btn-default btn-xs deletenote">Effacer</button>'+'</div>');
+            Client.changeColor();
+            socket.emit('addnote', {id: id,content: text, location: locationNumber,player: playerNumber});
             //clear text area
             textarea.val('');
         },
 
         deleteNote: function(id){
-            db.get(id).then(function(doc){
-                return db.remove(doc);
-            }).then(function(){
-                $('#'+id).parent().remove();
-                allNotes--;
-                socket.emit('deletenote', {id: id, location: locationNumber, player: playerNumber, notes: allNotes});
-            });
+            $('#'+id).parent().remove();
+            socket.emit('deletenote', {id: id});
         },
 
         addHeart: function(){
@@ -267,61 +189,33 @@ $(document).ready(function($){
                 $('#chooseLocationDlg').dialog('open');
                 return;
             }
-            var id = 'vote_' + groupNumber + '_' + locationNumber + '_' + playerNumber;
+            var id = 'group'+groupNumber+'/location'+locationNumber+'/player'+playerNumber;
             if(like == false){
                 like = true;
-                Client.updateVote(like, id);
                 $( '#heart' ).css('color', red);
             }else{
                 like = false;
-                Client.updateVote(like, id);
                 $( '#heart' ).css('color', 'grey');
             }
+            socket.emit('vote', {id: id,value:like,location:locationNumber,player:playerNumber});
         },
 
-        updateVote: function(value, id){
-            db.upsert(id, function(doc){
-                return{
-                    "type": "vote",
-                    "group": groupNumber,
-                    "location": locationNumber,
-                    "player": playerNumber,
-                    "vote": value
-                }
-            }).then(function(){
-                socket.emit('vote', {location: locationNumber, group: groupNumber, player: playerNumber, value:value});
-            }).catch(function(err){
-                console.log(err);
-            });
-//            db.put({
-//                _id: id,
-//                "type": "vote",
-//                "group": groupNumber,
-//                "location": locationNumber,
-//                "player": playerNumber,
-//                "vote": value
-//            }).then(function() {
-//                socket.emit('vote', {location: locationNumber, group: groupNumber, player: playerNumber, value:value});
-//            }).catch(function(err){
-//                if(err.status == 409){
-//                    db.get(id).then(function(doc){
-//                        console.log(doc);
-//                        socket.emit('vote', {location: locationNumber, group: groupNumber, player: playerNumber, value:value});
-//                        return db.put({
-//                            _id: id,
-//                            _rev: doc._rev,
-//                            "type": "vote",
-//                            "group": groupNumber,
-//                            "location": locationNumber,
-//                            "player": playerNumber,
-//                            "vote": value
-//                        });
-//                    });
-//                }else{
-//                    console.log('other error');
-//                }
-//            });
-        },
+        // updateVote: function(value, id){
+        //     db.upsert(id, function(doc){
+        //         return{
+        //             "type": "vote",
+        //             "group": groupNumber,
+        //             "location": locationNumber,
+        //             "player": playerNumber,
+        //             "vote": value
+        //         }
+        //     }).then(function(){
+        //         socket.emit('vote', {location: locationNumber, group: groupNumber, player: playerNumber, value:value});
+        //     }).catch(function(err){
+        //         console.log(err);
+        //     });
+
+        // },
 
         changeColor: function(){
             var colors = [['#E0F2F1','#009688'], ['#F1F8E9','#8BC34A'], ['#FFF3E0','#FF9800']];

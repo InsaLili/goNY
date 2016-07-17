@@ -75,7 +75,7 @@ io.on('connection', function (socket) {
         console.log('Experiment Starts!!!!');
     });
     socket.on('chooselocation', function (data) {
-        console.log('choose the location',data);
+        console.log('choose the location',data.player,data.location);
         var numLocation = data.location-1;
         io.emit('chooselocation', data);
     });
@@ -96,7 +96,7 @@ io.on('connection', function (socket) {
 
     socket.on('filtrateLocation', function(data){
         var card = data.button;
-        console.log('filtrate location', card);
+        console.log('filtrate location: ', card);
     });
 
     socket.on('touchLocationCard', function(data){
