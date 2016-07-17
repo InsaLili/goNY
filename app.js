@@ -72,49 +72,49 @@ io.on('connection', function (socket) {
 
 //        io.emit send message to all clients，socket.emit send message to particular client
     socket.on('start',function(){
-        logger.info('Experiment Starts!!!!');
+        console.log('Experiment Starts!!!!');
     });
     socket.on('chooselocation', function (data) {
-        logger.info('choose the location',data);
+        console.log('choose the location',data);
         var numLocation = data.location-1;
         io.emit('chooselocation', data);
     });
 
     socket.on('addnote', function(data){
-        logger.info('add note',data);
+        console.log('add note',data);
         io.emit('addnote', data);
     });
     socket.on('deletenote', function(data){
-        logger.info('delete note',data);
+        console.log('delete note',data);
         io.emit('deletenote', data);
     });
 
     socket.on('vote', function(data){
-        logger.info('vote for location',data);
+        console.log('vote for location',data);
         io.emit('vote', data);
     });
 
     socket.on('filtrateLocation', function(data){
-        logger.info('filtrate location', data);
+        console.log('filtrate location', data);
     });
 
     socket.on('touchLocationCard', function(data){
-        logger.info('touch a location card', data);
+        console.log('touch a location card', data);
     });
 
     socket.on('validation', function(data){
-        logger.info('validation', data);
+        console.log('validation', data);
     });
 
     socket.on('changeZoom', function(){
-        logger.info('change the zoom of the map');
+        console.log('change the zoom of the map');
     });
 
     socket.on('dragend', function(){
-        logger.info('drag the map');
+        console.log('drag the map');
     });
 
     socket.on('end', function(){
-        logger.info('Experiment Ends!!!!');
+        console.log('Experiment Ends!!!!');
     });
 });
