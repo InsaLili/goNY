@@ -110,14 +110,14 @@ $(document).ready(function($){
                 'http://www.viatorcom.fr/fr/7379/New-York-attractions/Brooklyn/d687-a68',
                 'http://www.viatorcom.fr/fr/7379/tours/New-York/Entree-au-musee-du-Memorial-du-11-septembre/d687-7195SEPT11',
                 'http://www.viatorcom.fr/fr/7379/tours/New-York/Musee-americain-dHistoire-naturelle-American-Museum-of-Natural-History/d687-2396AMNH',
-                'http://www.booking.com/hotel/us/indigo-new-york-city.html?checkin=2015-12-25;checkout=2015-12-26',//place16
-                'http://www.booking.com/hotel/us/harlem-ymca.fr.html?checkin=2015-12-25;checkout=2015-12-26',
-                'http://www.booking.com/hotel/us/herald-square.html?checkin=2015-12-25;checkout=2015-12-26',
-                'http://www.booking.com/hotel/us/broadway-hostel.html?sid=d9792821e277b223efea4bc86338dd10;dcid=4;checkin=2015-12-25&checkout=2015-12-26&dist=0&group_adults=2&sb_price_type=total&type=total&',
-                'http://www.booking.com/hotel/us/hilton-garden-inn-new-york-midtown-park-avenue.fr.html?checkin=2015-12-25;checkout=2015-12-26',
-                'http://www.booking.com/hotel/us/room-mate-grace.fr.html?checkin=2015-12-25;checkout=2015-12-26;',
-                'http://www.booking.com/hotel/us/doubletree-metropolitan.html?sid=d9792821e277b223efea4bc86338dd10;dcid=4;checkin=2015-12-25&checkout=2015-12-26&dist=0&group_adults=2&sb_price_type=total&type=total&',
-                'http://www.booking.com/hotel/us/new-york-marriott-marquis.html?checkin=2015-12-25;checkout=2015-12-26'];
+                'http://www.booking.com/hotel/us/indigo-new-york-city.html?checkin=2016-12-25;checkout=2016-12-26',//place16
+                'http://www.booking.com/hotel/us/harlem-ymca.fr.html?checkin=2016-12-25;checkout=2016-12-26',
+                'http://www.booking.com/hotel/us/herald-square.html?checkin=2016-12-25;checkout=2016-12-26',
+                'http://www.booking.com/hotel/us/broadway-hostel.html?sid=d9792821e277b223efea4bc86338dd10;dcid=4;checkin=2016-12-25&checkout=2016-12-26&dist=0&group_adults=2&sb_price_type=total&type=total&',
+                'http://www.booking.com/hotel/us/hilton-garden-inn-new-york-midtown-park-avenue.fr.html?checkin=2016-12-25;checkout=2016-12-26',
+                'http://www.booking.com/hotel/us/room-mate-grace.fr.html?checkin=2016-12-25;checkout=2016-12-26;',
+                'http://www.booking.com/hotel/us/doubletree-metropolitan.html?sid=d9792821e277b223efea4bc86338dd10;dcid=4;checkin=2016-12-25&checkout=2016-12-26&dist=0&group_adults=2&sb_price_type=total&type=total&',
+                'http://www.booking.com/hotel/us/new-york-marriott-marquis.html?checkin=2016-12-25;checkout=2016-12-26'];
 
             socket.on('chooselocation', function (data) {
                 var player = data.player;
@@ -126,6 +126,8 @@ $(document).ready(function($){
                     Client.attachNote(data.notes);
                     Client.attachVote(data.eval);
                     document.getElementById("frame").src = addresses[locationNumber-1];
+                    var textarea = $('#myNote textarea');
+                    textarea.val('');
                 }
             });
         },
