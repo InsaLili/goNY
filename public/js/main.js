@@ -357,12 +357,12 @@ $(document).ready(function() {
             var location = data.location;
             var notes = data.notes;
             $('#note' + location).append('<p id=' + id + ' class="notePlayer' + player + '">' + content + '</p>');
-            // var noteHeight = $('#location' + location + ' .note').height();
-            // if (noteHeight + 200 > 300) {
-            //     $('#location' + location).height(noteHeight + 200 + 'px');
-            // } else {
-            //     $('#location' + location).height(300 + 'px');
-            // }
+            var noteHeight = $('#location' + location + ' .note').height();
+            if (noteHeight + 200 > 300) {
+                $('#location' + location).height(noteHeight + 200 + 'px');
+            } else {
+                $('#location' + location).height(300 + 'px');
+            }
             allNotes.push(data);
             updateDB();
         });
@@ -375,12 +375,12 @@ $(document).ready(function() {
                 return value.id !== id;
             });
             updateDB();
-            // var noteHeight = $('#location' + location + ' .note').height();
-            // if (noteHeight + 200 > 300) {
-            //     $('#location' + location).height(noteHeight + 200 + 'px');
-            // } else {
-            //     $('#location' + location).height(300 + 'px');
-            // }
+            var noteHeight = $('#location' + location + ' .note').height();
+            if (noteHeight + 200 > 300) {
+                $('#location' + location).height(noteHeight + 200 + 'px');
+            } else {
+                $('#location' + location).height(300 + 'px');
+            }
         });
 
         socket.on('vote', function (data) {
