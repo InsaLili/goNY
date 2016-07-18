@@ -182,7 +182,7 @@ $(document).ready(function($){
             }
             // var id= 'group'+groupNumber+'_location'+locationNumber+'_player'+playerNumber+'_'+Math.random();
             var randomNum = Math.round(Math.random()*10000000000);
-            var id= 'note'+randomNum;
+            var id= 'group'+groupNumber+'_location'+locationNumber+'_player'+playerNumber+'_'+randomNum;
             $('#showNotes span').append('<div class="noteOfPlayer">'+'<p>'+text+'</p>'+'<button id='+id+'  class="btn btn-default btn-xs deletenote">Effacer</button>'+'</div>');
             Client.changeColor();
             socket.emit('addnote', {id: id,content: text, location: locationNumber,player: playerNumber});
@@ -192,7 +192,7 @@ $(document).ready(function($){
 
         deleteNote: function(id){
             $('#'+id).parent().remove();
-            socket.emit('deletenote', {id: id});
+            socket.emit('deletenote', {id: id, location: locationNumber});
         },
 
         addHeart: function(){

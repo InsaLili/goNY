@@ -369,6 +369,7 @@ $(document).ready(function() {
 
         socket.on('deletenote', function (data) {
             console.log(data);
+            var location = data.location;
             var id = data.id;
             $('#' + id).remove();
             allNotes = $.grep(allNotes, function(value){
