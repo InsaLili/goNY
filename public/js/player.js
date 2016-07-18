@@ -3,7 +3,7 @@
 $(document).ready(function($){
     // Variables =============================================================
     var locationNumber;
-    var groupNumber = 5;
+    var groupNumber = 2;
     var playerNumber = 0;
     var like = false;
     var red = '#D00000';
