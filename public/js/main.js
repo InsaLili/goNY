@@ -11,7 +11,7 @@ $(document).ready(function() {
     var socket = io.connect('https://gony.herokuapp.com');
     // var socket = io.connect('http://192.168.145.39:8000');
     var myLayer;
-    var groupNumber = 5;
+    var groupNumber = 6;
     var locationAmount = 23;
     var attractionAmount = 15;
     var cardBtn = false;
