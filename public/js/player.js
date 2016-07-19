@@ -3,7 +3,7 @@
 $(document).ready(function($){
     // Variables =============================================================
     var locationNumber;
-    var groupNumber = 6 ;
+    var groupNumber = 7 ;
     var playerNumber = 0;
     var like = false;
     var red = '#D00000';
@@ -81,37 +81,37 @@ $(document).ready(function($){
 
             var addresses=[
             //  chinese version
-               // 'http://place.qyer.com/poi/V2EJZlFvBz9TbA/',
-               // 'http://place.qyer.com/poi/V2EJYlFiBzNTZQ/',
-               // 'http://place.qyer.com/poi/V2EJalFiBzJTYg/',
-               // 'http://place.qyer.com/poi/V2EJZFFiBzNTbQ/',
-               // 'http://place.qyer.com/poi/V2EJYlFgBzZTZg/',
-               // 'http://place.qyer.com/poi/V2UJYlFnBzBTYFI_/',
-               // 'http://place.qyer.com/poi/V2EJYlFiBzFTYw/',
-               // 'http://place.qyer.com/poi/V2EJalFiBzJTYQ/',
-               // 'http://place.qyer.com/poi/V2EJYlFiBzBTZA/',
-               // 'http://place.qyer.com/poi/V2IJYlFvBzZTYw/',
-               // 'http://place.qyer.com/poi/V2EJYlFgBzNTZg/',
-               // 'http://place.qyer.com/poi/V2EJalFnBzZTZw/',
-               // 'http://place.qyer.com/poi/V2EJYlFiBz5TYA/',
-               // 'http://place.qyer.com/poi/V2AJZlFnBz9TZg/',
-               // 'http://place.qyer.com/poi/V2EJalFnBzdTYg/',
+               'http://place.qyer.com/poi/V2EJZlFvBz9TbA/',
+               'http://place.qyer.com/poi/V2EJYlFiBzNTZQ/',
+               'http://place.qyer.com/poi/V2EJalFiBzJTYg/',
+               'http://place.qyer.com/poi/V2EJZFFiBzNTbQ/',
+               'http://place.qyer.com/poi/V2EJYlFgBzZTZg/',
+               'http://place.qyer.com/poi/V2UJYlFnBzBTYFI_/',
+               'http://place.qyer.com/poi/V2EJYlFiBzFTYw/',
+               'http://place.qyer.com/poi/V2EJalFiBzJTYQ/',
+               'http://place.qyer.com/poi/V2EJYlFiBzBTZA/',
+               'http://place.qyer.com/poi/V2IJYlFvBzZTYw/',
+               'http://place.qyer.com/poi/V2EJYlFgBzNTZg/',
+               'http://place.qyer.com/poi/V2EJalFnBzZTZw/',
+               'http://place.qyer.com/poi/V2EJYlFiBz5TYA/',
+               'http://place.qyer.com/poi/V2AJZlFnBz9TZg/',
+               'http://place.qyer.com/poi/V2EJalFnBzdTYg/',
             // french version
-                'http://www.viatorcom.fr/fr/7379/New-York-attractions/The-Cloisters/d687-a8773',
-                'http://www.viatorcom.fr/fr/7379/New-York-attractions/Central-Park-Les-attractions-de-New-York-city/d687-a1283',
-                'http://www.viatorcom.fr/fr/7379/New-York-attractions/Broadway/d687-a18',
-                'http://www.viatorcom.fr/fr/7379/tours/New-York/Billets-pour-lEmpire-State-Building-Billets-pour-lobservatoire-et-billets-coupe-file-facultatifs/d687-2194EMPIRE',
-                'http://www.viatorcom.fr/fr/7379/New-York-attractions/Museum-of-Modern-Art-MoMA/d687-a1299',
-                'http://www.viatorcom.fr/fr/7379/New-York-attractions/Ligne-dhorizon-de-New-York/d687-a15125',
-                'http://www.viatorcom.fr/fr/7379/New-York-attractions/Statue-de-la-Liberte/d687-a16',
-                'http://www.viatorcom.fr/fr/7379/New-York-attractions/Cinquieme-Avenue/d687-a8774',
-                'http://www.viatorcom.fr/fr/7379/New-York-attractions/New-York-Public-Library/d687-a9793',
-                'http://www.viatorcom.fr/fr/7379/New-York-attractions/Times-Square/d687-a1272',
-                'http://www.viatorcom.fr/fr/7379/tours/New-York/New-York-terrasse-panoramique-Top-of-the-Rock/d687-3784TOPROCK',
-                'http://www.viatorcom.fr/fr/7379/New-York-attractions/Cathedrale-Saint-Patrick/d687-a8775',
-                'http://www.viatorcom.fr/fr/7379/New-York-attractions/Brooklyn/d687-a68',
-                'http://www.viatorcom.fr/fr/7379/tours/New-York/Entree-au-musee-du-Memorial-du-11-septembre/d687-7195SEPT11',
-                'http://www.viatorcom.fr/fr/7379/tours/New-York/Musee-americain-dHistoire-naturelle-American-Museum-of-Natural-History/d687-2396AMNH',
+                // 'http://www.viatorcom.fr/fr/7379/New-York-attractions/The-Cloisters/d687-a8773',
+                // 'http://www.viatorcom.fr/fr/7379/New-York-attractions/Central-Park-Les-attractions-de-New-York-city/d687-a1283',
+                // 'http://www.viatorcom.fr/fr/7379/New-York-attractions/Broadway/d687-a18',
+                // 'http://www.viatorcom.fr/fr/7379/tours/New-York/Billets-pour-lEmpire-State-Building-Billets-pour-lobservatoire-et-billets-coupe-file-facultatifs/d687-2194EMPIRE',
+                // 'http://www.viatorcom.fr/fr/7379/New-York-attractions/Museum-of-Modern-Art-MoMA/d687-a1299',
+                // 'http://www.viatorcom.fr/fr/7379/New-York-attractions/Ligne-dhorizon-de-New-York/d687-a15125',
+                // 'http://www.viatorcom.fr/fr/7379/New-York-attractions/Statue-de-la-Liberte/d687-a16',
+                // 'http://www.viatorcom.fr/fr/7379/New-York-attractions/Cinquieme-Avenue/d687-a8774',
+                // 'http://www.viatorcom.fr/fr/7379/New-York-attractions/New-York-Public-Library/d687-a9793',
+                // 'http://www.viatorcom.fr/fr/7379/New-York-attractions/Times-Square/d687-a1272',
+                // 'http://www.viatorcom.fr/fr/7379/tours/New-York/New-York-terrasse-panoramique-Top-of-the-Rock/d687-3784TOPROCK',
+                // 'http://www.viatorcom.fr/fr/7379/New-York-attractions/Cathedrale-Saint-Patrick/d687-a8775',
+                // 'http://www.viatorcom.fr/fr/7379/New-York-attractions/Brooklyn/d687-a68',
+                // 'http://www.viatorcom.fr/fr/7379/tours/New-York/Entree-au-musee-du-Memorial-du-11-septembre/d687-7195SEPT11',
+                // 'http://www.viatorcom.fr/fr/7379/tours/New-York/Musee-americain-dHistoire-naturelle-American-Museum-of-Natural-History/d687-2396AMNH',
             // english version
                 // 'http://www.viator.com/New-York-attractions/The-Cloisters/d687-a8773',
                 // 'http://www.viator.com/New-York-attractions/Central-Park-Les-attractions-de-New-York-city/d687-a1283',
